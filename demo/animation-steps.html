@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			body,div{
+				margin:0;
+				padding:0;
+			}
+			.bear{
+				width:140px;
+				height:140px;
+				margin:100px auto;
+				background:url(images/1_sprite.png) no-repeat;
+			}
+			.bdj-step1{
+				animation:bdj-step1 5s steps(31,end) infinite
+			}
+			@keyframes bdj-step1{
+				0%{
+					background-position: 0 0;
+				}
+				100%{
+					background-position: -4340px 0;
+				}
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="bear bdj-step1"></div>
+	</body>
+</html>

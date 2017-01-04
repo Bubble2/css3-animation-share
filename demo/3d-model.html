@@ -1,0 +1,268 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>3d-model</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		.box-wrap,.stage{
+			position: absolute;
+			top:50%;
+			left:50%;
+			width:500px;
+			height:500px;
+			margin:-250px 0 0 -250px;
+			perspective:800px;
+			perspective-origin:right -100px;
+		}
+		.box{
+			position:absolute;
+			top:50%;
+			left:50%;
+			width:200px;
+			height:200px;
+			margin:-100px 0 0 -100px;
+			transform-style:preserve-3d;
+		}
+		.axis{
+			position:absolute;
+			top:0;
+			left:0;
+			width:100%;
+			height:100%;
+			transform-style:preserve-3d;
+		}
+		.axis-x,.axis-y,.axis-z{
+			position:absolute;
+			background:#000;
+			top:50%;
+			left:50%;
+			width:100%;
+			margin-left:-50%;
+			height:1px;
+			transform-style: preserve-3d;
+		}
+		.axis-x:before,.axis-y:before,.axis-z:before{
+			content:"";
+			position:absolute;
+			bottom:-1px;
+			right:3px;
+			content:"";
+			width:10px;
+			height:10px;
+			border-width:0 1px 1px 0;
+			border-style:solid;
+			border-color:#000;
+			transform:rotate(-45deg);
+			transform-origin: right center;
+		}
+		.axis-x:after,.axis-y:after,.axis-z:after{
+			position:absolute;
+			bottom:2px;
+			right:3px;
+			font-family:Arial;
+		}
+		.axis-x:after{
+			content:"X+";
+			color:#000;
+		}
+		.axis-y:after{
+			content:"Y+";
+			color:#f00;
+			transform:rotateZ(-90deg);
+		}
+		.axis-z:after{
+			content:"Z+";
+			color:#f0f;
+			transform:rotateY(90deg);
+		}
+		.axis-y{
+			background:#f00;
+			transform:rotateZ(90deg);
+		}
+		.axis-y:before{
+			border-color:#f00;
+		}
+		.axis-z{
+			width:120%;
+			margin-left:-60%;
+			background:#f0f;
+			transform:rotateY(-90deg);
+		}
+		.axis-z:before{
+			border-color:#f0f;
+		}
+
+		
+		.box>div{
+			position:absolute;
+			top:0;
+			left:0;
+			width:100%;
+			height:100%;
+			line-height:200px;
+			background:rgba(0,0,0,.2);
+			color:#fff;
+			border:1px solid #000;
+			box-sizing:border-box;
+			font-size:50px;
+			text-align:center;
+		}
+		.box .top{
+			transform:rotateX(90deg) translateZ(100px);
+		}
+		.box .bottom{
+			transform:rotateX(-90deg) translateZ(100px);
+		}
+		.box .left{
+			transform:rotateY(-90deg) translateZ(100px);
+		}
+		.box .right{
+			transform:rotateY(90deg) translateZ(100px);
+		}
+		.box .front{
+			transform:translateZ(100px);
+		}
+		.box .back{
+			transform:rotateY(180deg) translateZ(100px);
+		}
+		.txt{
+			margin:50px 0 0;
+			font-family: 'Microsoft YaHei';
+			text-align:center;
+		}
+		.adjust-bar{
+			position:absolute;
+			right:100px;
+			top:100px;
+			z-index:10;
+			outline: none;
+		}
+		.adjust-bar span{
+			display:inline-block;
+			width:100px;
+		}
+		.adjust-bar input{
+			width:300px;
+		}
+		.adjust-bar em{
+			display:inline-block;
+			width:100px;
+			font-style: normal;
+		}
+	</style>
+</head>
+<body>
+	<div class="box-wrap">
+		<div class="axis">
+			<div class="axis-x"></div>
+			<div class="axis-y"></div>
+			<div class="axis-z"></div>
+		</div>
+		
+	</div>
+	<div class="stage">
+		<div class="box">
+			<div class="top">上</div>
+			<div class="bottom">下</div>
+			<div class="left">左</div>
+			<div class="right">右</div>
+			<div class="front">前</div>
+			<div class="back">后</div>
+		</div>
+	</div>
+
+	<div class="adjust-bar">
+		<div class="adjust-item"><span>perspective:</span><input type="range" min="1" max="10000" value="800"><em>800px</em></div>
+		<div class="adjust-item"><span>rotateX:</span><input type="range" min="-360" max="360" value="0"><em>0deg</em></div>
+		<div class="adjust-item"><span>rotateY:</span><input type="range" min="-360" max="360" value="0"><em>0deg</em></div>
+		<div class="adjust-item"><span>rotateZ:</span><input type="range" min="-360" max="360" value="0"><em>0deg</em></div>
+		<div class="adjust-item"><span>translateX:</span><input type="range" min="-500" max="500" value="0"><em>0px</em></div>
+		<div class="adjust-item"><span>translateY:</span><input type="range" min="-500" max="500" value="0"><em>0px</em></div>
+		<div class="adjust-item"><span>translateZ:</span><input type="range" min="-500" max="500" value="0"><em>0px</em></div>
+	</div>
+	<script>
+		var curX=0,curY=0;
+		var oStage=document.querySelector(".stage");
+		var oBox=document.querySelector(".box");
+		var aAdjustItem=document.getElementsByClassName("adjust-item");
+
+		//perspective
+		aAdjustItem[0].childNodes[1].addEventListener("input",function(){
+			var iValue=this.value;
+			oStage.style.perspective=iValue+"px";
+			aAdjustItem[0].childNodes[2].innerHTML=iValue+"px";
+		})
+
+		//rotateX
+		aAdjustItem[1].childNodes[1].addEventListener("input",function(){
+			var iValue=this.value;
+			oBox.style.transform="rotateX("+iValue+"deg)";
+			aAdjustItem[1].childNodes[2].innerHTML=iValue+"px";
+		})
+		
+		//rotateY
+		aAdjustItem[2].childNodes[1].addEventListener("input",function(){
+			var iValue=this.value;
+			oBox.style.transform="rotateY("+iValue+"deg)";
+			aAdjustItem[2].childNodes[2].innerHTML=iValue+"px";
+		})
+
+		//rotateY
+		aAdjustItem[3].childNodes[1].addEventListener("input",function(){
+			var iValue=this.value;
+			oBox.style.transform="rotateZ("+iValue+"deg)";
+			aAdjustItem[3].childNodes[2].innerHTML=iValue+"px";
+		})
+
+		//translateX
+		aAdjustItem[4].childNodes[1].addEventListener("input",function(){
+			var iValue=this.value;
+			oBox.style.transform="translateX("+iValue+"px)";
+			aAdjustItem[4].childNodes[2].innerHTML=iValue+"px";
+		})
+
+		//translateY
+		aAdjustItem[5].childNodes[1].addEventListener("input",function(){
+			var iValue=this.value;
+			oBox.style.transform="translateY("+iValue+"px)";
+			aAdjustItem[5].childNodes[2].innerHTML=iValue+"px";
+		})
+
+		//translateZ
+		aAdjustItem[6].childNodes[1].addEventListener("input",function(){
+			var iValue=this.value;
+			oBox.style.transform="translateZ("+iValue+"px)";
+			aAdjustItem[6].childNodes[2].innerHTML=iValue+"px";
+		})
+
+		
+
+		oStage.onmousedown=function(e){
+			var oEvent=e||window.event;
+			var clientX=oEvent.clientX;
+			var clientY=oEvent.clientY;
+			oStage.onmousemove=function(e){
+				var oEvent=e||window.event;
+				var moveX=(oEvent.clientX-clientX)/10;
+				var moveY=(clientY-oEvent.clientY)/10;
+				curX+=moveX;
+				curY+=moveY;
+				oBox.style.transform="rotateX("+curY+"deg) rotateY("+curX+"deg)";
+				return false;
+			}
+			oStage.onmouseup=function(){
+				oStage.onmousemove=null;
+				oStage.onmouseup=null;
+			}
+		}
+
+
+
+	</script>
+</body>
+</html>

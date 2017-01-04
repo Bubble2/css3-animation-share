@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>倾斜</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		.box-wrap{
+			position: relative;
+			float:left;
+			width:450px;
+			height:200px;
+			margin:80px 0;
+		}
+		.box-wrap:after{
+			position:absolute;
+			top:0;
+			left:50%;
+			content: "";
+			width:200px;
+			height:200px;
+			margin-left:-100px;
+			background:rgba(255,0,0,.6);
+			box-sizing:border-box;
+		}
+		.box-wrap-3d{
+			perspective:800px;
+			transform-style:preserve-3d;
+		}
+		.box{
+			width:200px;
+			height:200px;
+			line-height:50px;
+			margin:0 auto;
+			background:#022c36;
+			color:#fff;
+			font-size:22px;
+			text-align:center;
+		}
+		.box1{
+			transform:skew(10deg,10deg);
+		}
+		.box2{
+			transform:skew(10deg);
+		}
+		.box3{
+			transform:skewX(-10deg);
+		}
+		.box4{
+			transform:skewY(10deg);
+		}
+		.txt{
+			margin:50px 0 0;
+			font-family: 'Microsoft YaHei';
+			text-align:center;
+		}
+	</style>
+</head>
+<body>
+	<div class="box-wrap">
+		<div class="box box1">X轴倾斜10度<br>Y轴倾斜10px</div>
+		<p class="txt">transform:skew(10deg,10deg);</p>
+	</div>
+	<div class="box-wrap">
+		<div class="box box2">X轴倾斜10度<br>省略第二个参数Y轴倾斜0度</div>
+		<p class="txt">transform:skew(10deg);</p>
+	</div>
+	<div class="box-wrap">
+		<div class="box box3">X轴倾斜-10度</div>
+		<p class="txt">transform:skewX(-10deg);</p>
+	</div>
+	<div class="box-wrap">
+		<div class="box box4">Y轴倾斜10px</div>
+		<p class="txt">transform:skewY(10deg);</p>
+	</div>
+</body>
+</html>

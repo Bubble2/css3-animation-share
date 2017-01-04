@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>位移</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		.box-wrap{
+			position: relative;
+			float:left;
+			width:450px;
+			height:200px;
+			margin:80px 0;
+		}
+		.box-wrap:before{
+			position:absolute;
+			top:0;
+			left:50%;
+			content: "";
+			width:200px;
+			height:200px;
+			margin-left:-100px;
+			background:rgba(255,0,0,.6);
+			box-sizing:border-box;
+		}
+		.box-wrap-3d{
+			perspective:800px;
+			transform-style:preserve-3d;
+		}
+		.box{
+			width:200px;
+			height:200px;
+			line-height:50px;
+			margin:0 auto;
+			background:rgba(2,44,54,.8);
+			color:#fff;
+			font-size:22px;
+			text-align:center;
+		}
+		.box1{
+			transform:translate(50px,20px);
+		}
+		.box2{
+			transform:translate(50px);
+		}
+		.box3{
+			transform:translateX(50px);
+		}
+		.box4{
+			transform:translateY(30px);
+		}
+		.box5{
+			transform:translateZ(100px);
+		}
+		.box6{
+			transform:translate3d(-20px,-15px,0);
+		}
+		.txt{
+			margin:50px 0 0;
+			font-family: 'Microsoft YaHei';
+			text-align:center;
+		}
+	</style>
+</head>
+<body>
+	<div class="box-wrap">
+		<div class="box box1">沿X轴向右移动50px<br>沿Y轴向下移动20px</div>
+		<p class="txt">transform:translate(50px,20px);</p>
+	</div>
+	<div class="box-wrap">
+		<div class="box box2">沿X轴向右移动50px<br>省略第二个参数则Y轴值为0</div>
+		<p class="txt">transform:translate(50px);</p>
+	</div>
+	<div class="box-wrap">
+		<div class="box box3">沿X轴向右移动50px</div>
+		<p class="txt">transform:translateX(50px);</p>
+	</div>
+	<div class="box-wrap">
+		<div class="box box4">沿Y轴向右移动30px</div>
+		<p class="txt">transform:translateY(30px);</p>
+	</div>
+	<div class="box-wrap box-wrap-3d">
+		<div class="box box5">三维场景中<br>沿Z轴向外移动100px</div>
+		<p class="txt">transform:translateZ(100px);</p>
+	</div>
+	<div class="box-wrap box-wrap-3d">
+		<div class="box box6">三维场景中<br>沿X轴向左移动20px<br>沿Y轴向上移动15px</div>
+		<p class="txt">transform:translate3d(-20px,-15px,0);</p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>animation-iteration-count</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		.box-wrap{
+			position: relative;
+			float:left;
+			width:450px;
+			height:200px;
+			margin:80px 0;
+		}
+		.box{
+			width:200px;
+			height:200px;
+			line-height:50px;
+			margin:0 auto;
+			background:#022c36;
+			color:#fff;
+			font-size:22px;
+			text-align:center;
+		}
+		.box1{
+			animation:anim 1s ease;
+		}
+		.box2{
+			animation:anim 1s ease infinite;
+		}
+		@keyframes anim{
+			0%{
+				transform:translateX(0);
+			}
+			100%{
+				transform:translateX(200px);
+			}
+		}
+
+		.txt{
+			margin:50px 0 0;
+			font-family: 'Microsoft YaHei';
+			text-align:center;
+		}
+	</style>
+</head>
+<body>
+	<div class="box-wrap">
+		<div class="box box1">默认情况动画只执行一次</div>
+		<p class="txt">animation:anim 1s ease;</p> 
+	</div>
+	<div class="box-wrap">
+		<div class="box box2">动画执行无数次</div>
+		<p class="txt">animation:anim 1s ease infinite;</p>
+	</div>
+</body>
+</html>

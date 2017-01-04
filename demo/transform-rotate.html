@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>旋转</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		.box-wrap{
+			position: relative;
+			float:left;
+			width:450px;
+			height:200px;
+			margin:80px 0;
+		}
+		.box-wrap:before{
+			position:absolute;
+			top:0;
+			left:50%;
+			content: "";
+			width:200px;
+			height:200px;
+			margin-left:-100px;
+			background:rgba(255,0,0,.6);
+			box-sizing:border-box;
+		}
+		.box{
+			width:200px;
+			height:200px;
+			line-height:50px;
+			margin:0 auto;
+			background:#022c36;
+			color:#fff;
+			font-size:22px;
+			text-align:center;
+		}
+		.box-wrap-3d{
+			perspective:800px;
+			transform-style:preserve-3d;
+		}
+		.box1{
+			transform:rotate(30deg);
+		}
+		.box2{
+			transform:rotate(-30deg);
+		}
+		.box3{
+			transform:rotateX(45deg);
+		}
+		.box4{
+			transform:rotateY(60deg);
+		}
+		.box5{
+			transform:rotateZ(20deg);
+		}
+		.box6{
+			transform:rotate3d(1,0,0,-50deg);
+		}
+		.box7{
+			transform:rotate3d(0,1,0,-50deg);
+		}
+		.txt{
+			margin:50px 0 0;
+			font-family: 'Microsoft YaHei';
+			text-align:center;
+		}
+	</style>
+</head>
+<body>
+	<div class="box-wrap">
+		<div class="box box1">顺时针旋转30度</div>
+		<p class="txt">transform:rotate(30deg);</p>
+	</div>
+	<div class="box-wrap">
+		<div class="box box2">逆时针旋转30度</div>
+		<p class="txt">transform:rotate(-30deg);</p>
+	</div>
+	<div class="box-wrap box-wrap-3d">
+		<div class="box box3">三维空间绕X轴顺时针旋转45度</div>
+		<p class="txt">transform:rotateX(45deg);</p>
+	</div>
+	<div class="box-wrap box-wrap-3d">
+		<div class="box box4">三维空间绕Y轴顺时针旋转60度</div>
+		<p class="txt">transform:rotateY(60deg);</p>
+	</div>
+	<div class="box-wrap box-wrap-3d">
+		<div class="box box5">三维空间绕Z轴顺时针旋转20度</div>
+		<p class="txt">transform:rotateZ(20deg);</p>
+	</div>
+</body>
+</html>
